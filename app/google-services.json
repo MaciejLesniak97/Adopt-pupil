@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "175717484975",
+    "project_id": "adoptuj-pupila",
+    "storage_bucket": "adoptuj-pupila.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:175717484975:android:7db5347d250677bdf5875a",
+        "android_client_info": {
+          "package_name": "com.maciejlesniak"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "175717484975-dn8fr11nt5ok3bi4nk9hsvlijdjr0sd3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.maciejlesniak",
+            "certificate_hash": "7ef59dedbaba0c55e35a500dcae70a18f2cef0df"
+          }
+        },
+        {
+          "client_id": "175717484975-67n8v82b17osn2uie03qua8sd2s4prtc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsrqqnlxv9vTs6ckinu9tbrAjocLpNXJg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "175717484975-67n8v82b17osn2uie03qua8sd2s4prtc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
