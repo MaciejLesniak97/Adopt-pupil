@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "175717484975",
+    "firebase_url": "https://adoptuj-pupila-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "adoptuj-pupila",
     "storage_bucket": "adoptuj-pupila.appspot.com"
   },
