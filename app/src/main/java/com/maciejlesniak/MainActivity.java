@@ -73,11 +73,17 @@ public class MainActivity extends AppCompatActivity {
                 //Do something on the left!
                 //You also have access to the original object.
                 //If you want to use it just cast it (String) dataObject
+                Cards obj = (Cards) dataObject;
+                String userId = obj.getUserId();
+                usersDb.child(oppositeUserSex).child(userId).child("connections").child("nope").child(currentUid).setValue(true);
                 Toast.makeText(MainActivity.this, "left", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
+                Cards obj = (Cards) dataObject;
+                String userId = obj.getUserId();
+                usersDb.child(oppositeUserSex).child(userId).child("connections").child("yep").child(currentUid).setValue(true);
                 Toast.makeText(MainActivity.this, "right", Toast.LENGTH_SHORT).show();
             }
 
@@ -159,11 +165,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getOppositeSexUsers() {
+        //CHECK !!!! sprawdzic czy tu nie powinno byc reference to oppositeUserSex
         DatabaseReference oppositeSexDb = FirebaseDatabase.getInstance().getReference("Users").child(oppositeUserSex);
         oppositeSexDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if (snapshot.exists()) {
+                //f the user isn't a connection than the user's id wont appear in the child "yeps" or "nope", so we can go ahead and display the user if this if statement is false.
+                if (snapshot.exists() && !snapshot.child("connections").child("nope").hasChild(currentUid)  && !snapshot.child("connections").child("yep").hasChild(currentUid)) {
 
                     Cards item = new Cards(snapshot.getKey(), snapshot.child("name").getValue().toString());
                     rowItems.add(item);
