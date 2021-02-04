@@ -3,10 +3,12 @@ package com.maciejlesniak;
 public class Cards {
     private String userId;
     private String name;
+    private String profileImageUrl;
     //Konstruktor
-    public Cards (String userId, String name) {
+    public Cards (String userId, String name, String profileImageUrl) {
         this.userId = userId;
         this.name = name;
+        this.profileImageUrl = profileImageUrl;
     }
 
     public String getUserId(){
@@ -21,5 +23,12 @@ public class Cards {
     }
     public void setName(){
         this.name = name;
+    }
+
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
     }
 }

@@ -174,8 +174,12 @@ public class MainActivity extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 //f the user isn't a connection than the user's id wont appear in the child "yeps" or "nope", so we can go ahead and display the user if this if statement is false.
                 if (snapshot.exists() && !snapshot.child("connections").child("nope").hasChild(currentUid)  && !snapshot.child("connections").child("yep").hasChild(currentUid)) {
-
-                    Cards item = new Cards(snapshot.getKey(), snapshot.child("name").getValue().toString());
+                    //Check For Default Image
+                    String profileImageUrl = "default";
+                    if (!snapshot.child("profileImageUrl").getValue().equals("default")) {
+                        profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
+                    }
+                    Cards item = new Cards(snapshot.getKey(), snapshot.child("name").getValue().toString(), profileImageUrl);
                     rowItems.add(item);
                     arrayAdapter.notifyDataSetChanged();
                 }
@@ -223,4 +227,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void goToSettings(View view) {
+        Intent intent = new Intent(MainActivity.this, UstawieniaActivity.class);
+        intent.putExtra("userSex", userSex);
+        startActivity(intent);
+        return;
+    }
 }
