@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.maciejlesniak">
+    <!-- ACCES TO ALL IMAGES THAT USER HAS -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-    <!--ACCES TO ALL IMAGES THAT USER HAS -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UstawieniaActivity"></activity>
+        <activity android:name=".Dopasowania.DopasowaniaActivity"></activity>
+        <activity android:name=".UstawieniaActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".RejestracjaActivity" />
         <activity android:name=".MainActivity" />

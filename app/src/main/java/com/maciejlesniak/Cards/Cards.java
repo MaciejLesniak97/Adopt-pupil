@@ -1,4 +1,4 @@
-package com.maciejlesniak;
+package com.maciejlesniak.Cards;
 
 public class Cards {
     private String userId;

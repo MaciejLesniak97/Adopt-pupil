@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Adoptuj pupila</string>
+    <string name="title_activity_dopasowania">DopasowaniaActivity</string>
 </resources>

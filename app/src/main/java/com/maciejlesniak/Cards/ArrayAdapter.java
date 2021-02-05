@@ -1,4 +1,4 @@
-package com.maciejlesniak;
+package com.maciejlesniak.Cards;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.maciejlesniak.Cards.Cards;
+import com.maciejlesniak.R;
 
 import java.util.List;
 

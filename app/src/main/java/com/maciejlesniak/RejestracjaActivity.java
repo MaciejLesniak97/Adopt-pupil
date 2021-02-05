@@ -85,10 +85,11 @@ public class RejestracjaActivity extends AppCompatActivity {
                         } else {
                             String userId = mAuth.getCurrentUser().getUid();
                             //reference to database
-                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference("Users").child(radioButton.getText().toString()).child(userId);
+                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference("Users").child(userId);
                             //DODAWANIE DOMYSLNEGO OBRAZU DO BAZY DANYCH
                             Map userInfo = new HashMap<>();
                             userInfo.put("name", name);
+                            userInfo.put("sex", radioButton.getText().toString());
                             userInfo.put("profileImageUrl", "default");
                             currentUserDb.updateChildren(userInfo);
                         }
