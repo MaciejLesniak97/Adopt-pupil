@@ -152,15 +152,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 //f the user isn't a connection than the user's id wont appear in the child "yeps" or "nope", so we can go ahead and display the user if this if statement is false.
-                if (snapshot.exists() && !snapshot.child("connections").child("nope").hasChild(currentUid)  && !snapshot.child("connections").child("yep").hasChild(currentUid) && !snapshot.child("sex").getValue().toString().equals(oppositeUserSex)) {
-                    //Check For Default Image
-                    String profileImageUrl = "default";
-                    if (!snapshot.child("profileImageUrl").getValue().equals("default")) {
-                        profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
+                if (snapshot.child("sex").getValue() != null) {
+                    if (snapshot.exists() && !snapshot.child("connections").child("nope").hasChild(currentUid)  && !snapshot.child("connections").child("yep").hasChild(currentUid) && !snapshot.child("sex").getValue().toString().equals(oppositeUserSex)) {
+                        //Check For Default Image
+                        String profileImageUrl = "default";
+                        if (!snapshot.child("profileImageUrl").getValue().equals("default")) {
+                            profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
+                        }
+                        Cards item = new Cards(snapshot.getKey(), snapshot.child("name").getValue().toString(), profileImageUrl);
+                        rowItems.add(item);
+                        arrayAdapter.notifyDataSetChanged();
                     }
-                    Cards item = new Cards(snapshot.getKey(), snapshot.child("name").getValue().toString(), profileImageUrl);
-                    rowItems.add(item);
-                    arrayAdapter.notifyDataSetChanged();
                 }
             }
             @Override
