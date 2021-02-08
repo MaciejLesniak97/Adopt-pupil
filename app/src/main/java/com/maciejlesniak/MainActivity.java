@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter arrayAdapter;
     private int i;
 
-
     private FirebaseAuth mAuth;
 
     private String currentUid;
@@ -53,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         currentUid = mAuth.getCurrentUser().getUid();
 
         checkUserSex();
-
 
         rowItems = new ArrayList<Cards>();
 
@@ -97,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onScroll(float scrollProgressPercent) {
-
             }
         });
 
@@ -112,11 +109,31 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void isConnectionMatch(String userId) {
+        DatabaseReference currentUserConnectionsDb = usersDb.child(currentUid).child("connections").child("yep").child(userId);
+        currentUserConnectionsDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Toast.makeText(MainActivity.this, "nowe połączenie", Toast.LENGTH_LONG).show();
+
+                    String key = FirebaseDatabase.getInstance().getReference("Chat").push().getKey();
+
+                    usersDb.child(snapshot.getKey()).child("connections").child("matches").child(currentUid).child("ChatId").setValue(key);
+                    usersDb.child(currentUid).child("connections").child("matches").child(snapshot.getKey()).child("ChatId").setValue(key);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+
     private String userSex;
     private String oppositeUserSex;
     public void checkUserSex() {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
         DatabaseReference userDb = usersDb.child(user.getUid());
         userDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -125,12 +142,15 @@ public class MainActivity extends AppCompatActivity {
                     if (snapshot.child("sex").getValue() != null) {
                         if (snapshot.child("sex") != null) {
                             userSex = snapshot.child("sex").getValue().toString();
-                            oppositeUserSex = "Female";
                             switch (userSex) {
                                 case "Male":
-                                    oppositeUserSex = "Female";
-                                    break;
                                 case "Female":
+                                    oppositeUserSex = "Pupil";
+                                    break;
+                                case "":
+                                    oppositeUserSex = "Male";
+                                    break;
+                                case "Kot":
                                     oppositeUserSex = "Male";
                                     break;
                             }
@@ -141,7 +161,6 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
@@ -153,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 //f the user isn't a connection than the user's id wont appear in the child "yeps" or "nope", so we can go ahead and display the user if this if statement is false.
                 if (snapshot.child("sex").getValue() != null) {
-                    if (snapshot.exists() && !snapshot.child("connections").child("nope").hasChild(currentUid)  && !snapshot.child("connections").child("yep").hasChild(currentUid) && !snapshot.child("sex").getValue().toString().equals(oppositeUserSex)) {
+                    if (snapshot.exists() && !snapshot.child("connections").child("nope").hasChild(currentUid)  && !snapshot.child("connections").child("yep").hasChild(currentUid) && snapshot.child("sex").getValue().toString().equals(oppositeUserSex)) {
                         //Check For Default Image
                         String profileImageUrl = "default";
                         if (!snapshot.child("profileImageUrl").getValue().equals("default")) {
@@ -190,23 +209,6 @@ public class MainActivity extends AppCompatActivity {
         return;
     }
 
-    private void isConnectionMatch(String userId) {
-        DatabaseReference currentUserConnectionsDb = usersDb.child(currentUid).child("connections").child("yep").child(userId);
-        currentUserConnectionsDb.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    Toast.makeText(MainActivity.this, "new Connection", Toast.LENGTH_LONG).show();
-                    usersDb.child(snapshot.getKey()).child("connections").child("matches").child(currentUid).setValue(true);
-                    usersDb.child(currentUid).child("connections").child("matches").child(snapshot.getKey()).setValue(true);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-    }
 
     public void goToSettings(View view) {
         Intent intent = new Intent(MainActivity.this, UstawieniaActivity.class);

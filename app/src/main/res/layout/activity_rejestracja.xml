@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RejestracjaActivity"
-    android:orientation="vertical">  <!-- -->
+    android:orientation="vertical"
+    android:background="@drawable/gradient_dawn">  <!-- -->
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,14 +19,27 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Male"
+            android:text="Adoptujący"
             />
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Female"
+            android:text="Pupil"
             />
     </RadioGroup>
+    <TextView
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Data urodzenia"/>
+    <DatePicker
+        android:layout_gravity="center"
+        android:id="@+id/datePicker1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:datePickerMode="spinner"
+        android:calendarViewShown="false"
+        />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,4 +55,10 @@
         android:layout_height="wrap_content"
         android:text="Zarejestruj"
         android:id="@+id/register"/>
+    <ImageView
+        android:alpha="0.7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/lapa"
+        />
 </LinearLayout>

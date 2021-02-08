@@ -1,13 +1,15 @@
 package com.maciejlesniak;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -20,8 +22,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
-import com.google.firebase.database.core.SyncTree;
+
+import org.joda.time.LocalDate;
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,9 +37,15 @@ public class RejestracjaActivity extends AppCompatActivity {
 
     private RadioGroup mRadioGroup;
 
+    private DatePicker mDatePicker;
+
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
+    private LocalDate birthDate, today;
+    private int month, age;
+    private Period period;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,12 +73,22 @@ public class RejestracjaActivity extends AppCompatActivity {
 
         mRadioGroup = (RadioGroup) findViewById(R.id.radioGroup);
 
+        mDatePicker = (DatePicker) findViewById(R.id.datePicker1);
+
+
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int selectId = mRadioGroup.getCheckedRadioButtonId();
 
+                month = mDatePicker.getMonth()+1;
+                birthDate = new LocalDate(mDatePicker.getYear(), month, mDatePicker.getDayOfMonth());
+                today = new LocalDate();
+                period = new Period(birthDate, today, PeriodType.yearMonthDay());
+                age = period.getYears();
+
+                int selectId = mRadioGroup.getCheckedRadioButtonId();
                 final RadioButton radioButton = (RadioButton) findViewById(selectId);
+
 
                 if (radioButton.getText() == null) {
                     return;
@@ -80,8 +100,8 @@ public class RejestracjaActivity extends AppCompatActivity {
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RejestracjaActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (!task.isSuccessful()) {
-                            Toast.makeText(RejestracjaActivity.this, "sign_up_error", Toast.LENGTH_SHORT).show();
+                        if (!task.isSuccessful() || (radioButton.getText().toString().equals("Adoptujący") && age < 18)) {
+                            Toast.makeText(RejestracjaActivity.this, "Rejestracja nie powiodła się", Toast.LENGTH_SHORT).show();
                         } else {
                             String userId = mAuth.getCurrentUser().getUid();
                             //reference to database
@@ -91,6 +111,8 @@ public class RejestracjaActivity extends AppCompatActivity {
                             userInfo.put("name", name);
                             userInfo.put("sex", radioButton.getText().toString());
                             userInfo.put("profileImageUrl", "default");
+                            userInfo.put("Data Urodzenia", birthDate.toString());
+                            userInfo.put("Wiek", age);
                             currentUserDb.updateChildren(userInfo);
                         }
                     }
@@ -110,4 +132,5 @@ public class RejestracjaActivity extends AppCompatActivity {
         super.onStop();
         mAuth.removeAuthStateListener(firebaseAuthStateListener);
     }
+
 }

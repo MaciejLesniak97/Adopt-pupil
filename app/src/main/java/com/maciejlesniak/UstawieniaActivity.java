@@ -35,11 +35,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.xml.transform.Source;
 
 public class UstawieniaActivity extends AppCompatActivity {
 
-    private EditText mNameField, mPhoneField;
+    private EditText mNameField, mPhoneField, mDescriptionField;
 
     private Button mBack, mConfirm;
 
@@ -48,7 +47,7 @@ public class UstawieniaActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mUserDatabase;
 
-    private String userId, name, phone, profileImageUrl, userSex;
+    private String userId, name, phone, description, profileImageUrl, userSex;
 
     private Uri resultUri;
 
@@ -59,6 +58,7 @@ public class UstawieniaActivity extends AppCompatActivity {
 
         mNameField = (EditText) findViewById(R.id.name);
         mPhoneField = (EditText) findViewById(R.id.phone);
+        mDescriptionField = (EditText) findViewById(R.id.description);
 
         mProfileImage = (ImageView) findViewById(R.id.profileImage);
 
@@ -139,10 +139,12 @@ public class UstawieniaActivity extends AppCompatActivity {
     private void saveUserInformation() {
         name = mNameField.getText().toString();
         phone = mPhoneField.getText().toString();
+        description = mDescriptionField.getText().toString();
 
         Map userInfo = new HashMap();
         userInfo.put("name", name);
         userInfo.put("phone", phone);
+        userInfo.put("description", description);
         mUserDatabase.updateChildren(userInfo);
         if (resultUri != null) {
             final StorageReference filepath = FirebaseStorage.getInstance().getReference("profileImages").child(userId);
