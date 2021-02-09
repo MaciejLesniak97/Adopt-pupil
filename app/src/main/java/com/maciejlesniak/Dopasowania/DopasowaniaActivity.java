@@ -52,8 +52,8 @@ public class DopasowaniaActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    for (DataSnapshot matche : snapshot.getChildren()) {
-                        FetchMatchInformation(matche.getKey());
+                    for (DataSnapshot matches : snapshot.getChildren()) {
+                        FetchMatchInformation(matches.getKey());
                     }
                 }
             }
@@ -75,14 +75,18 @@ public class DopasowaniaActivity extends AppCompatActivity {
                     String userId = snapshot.getKey();
                     String name = "";
                     String profileImageUrl = "";
+                    String description = "";
                     if (snapshot.child("name").getValue() != null) {
                         name = snapshot.child("name").getValue().toString();
                     }
                     if (snapshot.child("profileImageUrl").getValue() != null) {
                         profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
                     }
+                    if (snapshot.child("description").getValue() != null) {
+                        description = snapshot.child("description").getValue().toString();
+                    }
 
-                    DopasowaniaObject obj = new DopasowaniaObject(userId, name, profileImageUrl);
+                    DopasowaniaObject obj = new DopasowaniaObject(userId, name, profileImageUrl, description);
                     resultsDopasowania.add(obj);
                     mDopasowaniaAdapter.notifyDataSetChanged();
                 }

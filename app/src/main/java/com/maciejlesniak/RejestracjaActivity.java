@@ -97,26 +97,30 @@ public class RejestracjaActivity extends AppCompatActivity {
                 final String email = mEmail.getText().toString();
                 final String password = mPassword.getText().toString();
                 final String name = mName.getText().toString();
-                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RejestracjaActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (!task.isSuccessful() || (radioButton.getText().toString().equals("Adoptujący") && age < 18)) {
-                            Toast.makeText(RejestracjaActivity.this, "Rejestracja nie powiodła się", Toast.LENGTH_SHORT).show();
-                        } else {
-                            String userId = mAuth.getCurrentUser().getUid();
-                            //reference to database
-                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference("Users").child(userId);
-                            //DODAWANIE DOMYSLNEGO OBRAZU DO BAZY DANYCH
-                            Map userInfo = new HashMap<>();
-                            userInfo.put("name", name);
-                            userInfo.put("sex", radioButton.getText().toString());
-                            userInfo.put("profileImageUrl", "default");
-                            userInfo.put("Data Urodzenia", birthDate.toString());
-                            userInfo.put("Wiek", age);
-                            currentUserDb.updateChildren(userInfo);
+                if (radioButton.getText().toString().equals("Adoptujący") && age < 18) {
+                    Toast.makeText(RejestracjaActivity.this, "Musisz mieć ukończone 18 lat", Toast.LENGTH_SHORT).show();
+                } else {
+                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RejestracjaActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (!task.isSuccessful()) {
+                                Toast.makeText(RejestracjaActivity.this, "Rejestracja nie powiodła się", Toast.LENGTH_SHORT).show();
+                            } else {
+                                String userId = mAuth.getCurrentUser().getUid();
+                                //reference to database
+                                DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+                                //DODAWANIE DOMYSLNEGO OBRAZU DO BAZY DANYCH
+                                Map userInfo = new HashMap<>();
+                                userInfo.put("name", name);
+                                userInfo.put("sex", radioButton.getText().toString());
+                                userInfo.put("profileImageUrl", "default");
+                                userInfo.put("Data Urodzenia", birthDate.toString());
+                                userInfo.put("Wiek", age);
+                                currentUserDb.updateChildren(userInfo);
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         });
     }

@@ -37,7 +37,8 @@ public class DopasowaniaAdapter extends RecyclerView.Adapter<DopasowaniaViewHold
 
     @Override
     public void onBindViewHolder(@NonNull DopasowaniaViewHolders holder, int position) {
-        holder.mDopasowaniaId.setText(dopasowaniaList.get(position).getUserId());
+        holder.mMatchId.setText(dopasowaniaList.get(position).getUserId());
+        holder.mDescriptionId.setText(dopasowaniaList.get(position).getDescription());
         holder.mDopasowaniaName.setText(dopasowaniaList.get(position).getName());
         if (!dopasowaniaList.get(position).getProfileImageUrl().equals("default")) {
             Glide.with(context).load(dopasowaniaList.get(position).getProfileImageUrl()).into(holder.mMatchImage);

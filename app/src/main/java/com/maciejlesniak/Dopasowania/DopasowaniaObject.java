@@ -4,11 +4,19 @@ public class DopasowaniaObject {
     private String userId;
     private String name;
     private String profileImageUrl;
-    //Konstruktor
-    public DopasowaniaObject (String userId, String name, String profileImageUrl) {
+    private String description;
+
+    public DopasowaniaObject(String userId, String name, String profileImageUrl, String description) {
         this.userId = userId;
         this.name = name;
         this.profileImageUrl = profileImageUrl;
+        this.description = description;
+    }
+
+    public DopasowaniaObject(String name, String profileImageUrl, String description) {
+        this.name = name;
+        this.profileImageUrl = profileImageUrl;
+        this.description = description;
     }
 
     public String getUserId(){
@@ -33,5 +41,13 @@ public class DopasowaniaObject {
 
     public void setProfileImageUrl(String profileImageUrl) {
         this.profileImageUrl = profileImageUrl;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

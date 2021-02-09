@@ -15,7 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:background="@drawable/gradient_background">
         <TextView
             android:paddingBottom="20sp"
             android:layout_width="match_parent"
@@ -23,11 +24,18 @@
             android:text="Imię dopasowanego"
             android:id="@+id/MatchName"/>
         <TextView
+            android:paddingBottom="20sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Matche's ID"
             android:layout_gravity="center"
-            android:id="@+id/DopasowaniaId"/>
+            android:id="@+id/MatchId"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Opis"
+            android:layout_gravity="center"
+            android:id="@+id/DescriptionId"/>
     </LinearLayout>
 
 </LinearLayout>

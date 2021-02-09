@@ -13,13 +13,14 @@ import com.maciejlesniak.Chat.ChatActivity;
 import com.maciejlesniak.R;
 
 public class DopasowaniaViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener {
-    public TextView mDopasowaniaId, mDopasowaniaName;
+    public TextView mMatchId, mDescriptionId, mDopasowaniaName;
     public ImageView mMatchImage;
     public DopasowaniaViewHolders(@NonNull View itemView) {
         super(itemView);
         itemView.setOnClickListener(this);
 
-        mDopasowaniaId = (TextView) itemView.findViewById(R.id.DopasowaniaId);
+        mMatchId = (TextView) itemView.findViewById(R.id.MatchId);
+        mDescriptionId = (TextView) itemView.findViewById(R.id.DescriptionId);
         mDopasowaniaName = (TextView) itemView.findViewById(R.id.MatchName);
         mMatchImage = (ImageView) itemView.findViewById(R.id.MatchImage);
     }
@@ -28,7 +29,7 @@ public class DopasowaniaViewHolders extends RecyclerView.ViewHolder implements V
     public void onClick(View v) {
         Intent intent = new Intent(v.getContext(), ChatActivity.class);
         Bundle b = new Bundle();
-        b.putString("matchId", mDopasowaniaId.getText().toString());
+        b.putString("matchId", mMatchId.getText().toString());
         intent.putExtras(b);
         v.getContext().startActivity(intent);
     }
