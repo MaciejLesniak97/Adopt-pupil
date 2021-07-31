@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UstawieniaActivity"
+    tools:context=".SettingsActivity"
     android:orientation="vertical"
     android:padding="20sp"
     android:background="@drawable/gradient_background">
@@ -44,11 +44,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/confirm"
-        android:text="confirm"/>
+        android:text="Potwierdź"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/back"
-        android:text="back"/>
+        android:text="Wróć"/>
 
 </LinearLayout>

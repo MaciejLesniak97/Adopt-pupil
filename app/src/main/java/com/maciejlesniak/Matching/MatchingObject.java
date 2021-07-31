@@ -1,19 +1,19 @@
-package com.maciejlesniak.Dopasowania;
+package com.maciejlesniak.Matching;
 
-public class DopasowaniaObject {
+public class MatchingObject {
     private String userId;
     private String name;
     private String profileImageUrl;
     private String description;
 
-    public DopasowaniaObject(String userId, String name, String profileImageUrl, String description) {
+    public MatchingObject(String userId, String name, String profileImageUrl, String description) {
         this.userId = userId;
         this.name = name;
         this.profileImageUrl = profileImageUrl;
         this.description = description;
     }
 
-    public DopasowaniaObject(String name, String profileImageUrl, String description) {
+    public MatchingObject(String name, String profileImageUrl, String description) {
         this.name = name;
         this.profileImageUrl = profileImageUrl;
         this.description = description;

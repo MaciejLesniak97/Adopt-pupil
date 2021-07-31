@@ -4,7 +4,7 @@ public class Cards {
     private String userId;
     private String name;
     private String profileImageUrl;
-    //Konstruktor
+
     public Cards (String userId, String name, String profileImageUrl) {
         this.userId = userId;
         this.name = name;

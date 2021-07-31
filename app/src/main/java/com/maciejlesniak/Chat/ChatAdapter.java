@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
 import com.maciejlesniak.R;
 
 import java.util.List;
@@ -20,8 +18,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolders> {
     private Context context;
 
 
-    public ChatAdapter(List<ChatObject> dopasowaniaList, Context context) {
-        this.chatList = dopasowaniaList;
+    public ChatAdapter(List<ChatObject> matchingList, Context context) {
+        this.chatList = matchingList;
         this.context = context;
     }
 

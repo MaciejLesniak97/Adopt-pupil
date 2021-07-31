@@ -1,15 +1,10 @@
 package com.maciejlesniak.Chat;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.maciejlesniak.R;
 
 public class ChatViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener {

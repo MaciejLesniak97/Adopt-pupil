@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,9 +18,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.maciejlesniak.Dopasowania.DopasowaniaActivity;
-import com.maciejlesniak.Dopasowania.DopasowaniaAdapter;
-import com.maciejlesniak.Dopasowania.DopasowaniaObject;
 import com.maciejlesniak.R;
 
 import java.util.ArrayList;
@@ -33,11 +29,8 @@ public class ChatActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mChatAdapter;
     private RecyclerView.LayoutManager mChatLayoutManager;
-
     private EditText mSendEditText;
-
     private Button mSendButton;
-
     private String currentUserID, matchId, chatId;
 
     DatabaseReference mDatabaseUser, mDatabaseChat;
@@ -51,7 +44,7 @@ public class ChatActivity extends AppCompatActivity {
 
         currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        mDatabaseUser = FirebaseDatabase.getInstance().getReference("Users").child(currentUserID).child("connections").child("matches").child(matchId).child("chatId");
+        mDatabaseUser = FirebaseDatabase.getInstance().getReference("Users").child(currentUserID).child("połączenia").child("dopasowania").child(matchId).child("ChatId");
         mDatabaseChat = FirebaseDatabase.getInstance().getReference("Chat");
 
         getChatId();

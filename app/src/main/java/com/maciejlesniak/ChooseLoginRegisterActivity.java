@@ -7,13 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class WybierzZalogujZarejestrujActivity extends AppCompatActivity {
+public class ChooseLoginRegisterActivity extends AppCompatActivity {
 
     private Button mLogin, mRegister;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wybierz_zaloguj_zarejestruj);
+        setContentView(R.layout.activity_choose_login_register);
 
         mLogin = (Button) findViewById(R.id.login);
         mRegister = (Button) findViewById(R.id.register);
@@ -21,7 +21,7 @@ public class WybierzZalogujZarejestrujActivity extends AppCompatActivity {
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WybierzZalogujZarejestrujActivity.this, LoginActivity.class);
+                Intent intent = new Intent(ChooseLoginRegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
                 return;
@@ -31,7 +31,7 @@ public class WybierzZalogujZarejestrujActivity extends AppCompatActivity {
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WybierzZalogujZarejestrujActivity.this, RejestracjaActivity.class);
+                Intent intent = new Intent(ChooseLoginRegisterActivity.this, RegistrationActivity.class);
                 startActivity(intent);
                 finish();
                 return;

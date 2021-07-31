@@ -30,7 +30,7 @@ import org.joda.time.PeriodType;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RejestracjaActivity extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity {
 
     private Button mRegister;
     private EditText mEmail, mPassword, mName;
@@ -38,7 +38,8 @@ public class RejestracjaActivity extends AppCompatActivity {
     private RadioGroup mRadioGroup;
 
     private DatePicker mDatePicker;
-
+    /*      COMMENTARY    */
+    /* DECLARATION OF INSTANCE FirebaseAuth */
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     private LocalDate birthDate, today;
@@ -49,15 +50,19 @@ public class RejestracjaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rejestracja);
+        setContentView(R.layout.activity_registration);
 
+        /* INICIALIZATION OF INSTANCE FirebaseAuth */
         mAuth = FirebaseAuth.getInstance();
+
+        /* INSTANCE STATE LISTENER OF FirebaseAuth */
         firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                /* CHECKING IF USER IS ACTUALLY LOGGED IN, IF HE/SHE IS GO TO MAINACTIVITY */
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null) {
-                    Intent intent = new Intent(RejestracjaActivity.this, MainActivity.class);
+                    Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                     return;
@@ -66,16 +71,13 @@ public class RejestracjaActivity extends AppCompatActivity {
         };
 
         mRegister = (Button) findViewById(R.id.register);
-
         mEmail = (EditText) findViewById(R.id.email);
         mPassword = (EditText) findViewById(R.id.password);
         mName = (EditText) findViewById(R.id.name);
-
         mRadioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-
         mDatePicker = (DatePicker) findViewById(R.id.datePicker1);
 
-
+        /*  */
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,21 +100,21 @@ public class RejestracjaActivity extends AppCompatActivity {
                 final String password = mPassword.getText().toString();
                 final String name = mName.getText().toString();
                 if (radioButton.getText().toString().equals("Adoptujący") && age < 18) {
-                    Toast.makeText(RejestracjaActivity.this, "Musisz mieć ukończone 18 lat", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationActivity.this, "Musisz mieć ukończone 18 lat", Toast.LENGTH_SHORT).show();
                 } else {
-                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RejestracjaActivity.this, new OnCompleteListener<AuthResult>() {
+                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()) {
-                                Toast.makeText(RejestracjaActivity.this, "Rejestracja nie powiodła się", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegistrationActivity.this, "Rejestracja nie powiodła się", Toast.LENGTH_SHORT).show();
                             } else {
                                 String userId = mAuth.getCurrentUser().getUid();
                                 //reference to database
                                 DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference("Users").child(userId);
-                                //DODAWANIE DOMYSLNEGO OBRAZU DO BAZY DANYCH
+                                //ADDING DEFAULT IMAGE TO DATABASE
                                 Map userInfo = new HashMap<>();
-                                userInfo.put("name", name);
-                                userInfo.put("sex", radioButton.getText().toString());
+                                userInfo.put("nazwa", name);
+                                userInfo.put("rodzaj użytkownika", radioButton.getText().toString());
                                 userInfo.put("profileImageUrl", "default");
                                 userInfo.put("Data Urodzenia", birthDate.toString());
                                 userInfo.put("Wiek", age);

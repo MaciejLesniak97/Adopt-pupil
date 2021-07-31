@@ -3,8 +3,6 @@ package com.maciejlesniak.Chat;
 public class ChatObject {
     private String message;
     private Boolean currentUser;
-    //Konstruktor
-
 
     public ChatObject(String message, Boolean currentUser) {
         this.message = message;
